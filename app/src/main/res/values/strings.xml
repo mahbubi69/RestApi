@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">RestApi</string>
+
+    <string-array name="action">
+        <item>no action</item>
+        <item>baca</item>
+        <item>hafalkan</item>
+        <item>actionn</item>
+
+    </string-array>
 </resources>

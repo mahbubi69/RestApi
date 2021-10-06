@@ -3,13 +3,14 @@ package com.example.restapi
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.restapi.databinding.ActivityMainBinding
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ItemClikHandler {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var adapter: DataAdapter
@@ -29,8 +30,8 @@ class MainActivity : AppCompatActivity() {
                 if (response.isSuccessful) {
                     Log.d("data", "${response.body()}")
                     val data1 = response.body()
-                   menampilkanRecyclerview(data1!!)
-                } else {
+                    menampilkanRecyclerview(data1!!)
+                 } else {
                     Log.e("not succes", "tidak sukses")
                 }
             }
@@ -40,12 +41,17 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        }
+    }
+
     fun menampilkanRecyclerview(listdataku: ArrayList<PostRespon>) {
-        adapter = DataAdapter(listdataku)
+        adapter = DataAdapter(listdataku, this)
         binding.rvData.adapter = adapter
         binding.rvData.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+    }
+
+    override fun onSpinnerClik(dataResp: PostRespon, action: String) {
+        Toast.makeText(this, "test ${dataResp.arti},sudah di $action", Toast.LENGTH_SHORT).show()
     }
 }
 
